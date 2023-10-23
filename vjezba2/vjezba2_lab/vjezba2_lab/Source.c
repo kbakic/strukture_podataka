@@ -39,6 +39,28 @@ int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int bir
 	return 0;
 }
 
+int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+
+	Position newMember;
+	newMember = (Position)malloc(sizeof(Person));
+
+	strcpy(newMember->name, name);
+	strcpy(newMember->surname, surname);
+	newMember->birthyear = birthyear;
+	while (pos->next != NULL)
+	{
+		pos = pos->next;
+	}
+
+	pos->next = newMember;
+	newMember->next = NULL;
+
+	/*printf("Testing data entry... Person name and surname: %s %s, birthyear: %d\n",
+		newMember->name, newMember->surname, newMember->birthyear);*/
+
+	return 0;
+}
+
 int PrintingList(Position pos) {
 
 	while (pos != NULL) {
@@ -57,6 +79,7 @@ int main()
 
 	AddOnHead(&headPerson, "Karlo", "Bakic", 2004);
 	AddOnHead(&headPerson, "Luka", "Bosnic", 2003);
+	AddOnEnd(&headPerson, "Laura", "Bauk", 2003);
 
 	PrintingList(headPerson.next);
 
