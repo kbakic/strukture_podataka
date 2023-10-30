@@ -30,6 +30,7 @@ int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_
 int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
 int PrintingList(Position pos);
 int WriteListInFile(Position first);
+int ReadListFromFile();
 
 int main()
 {
