@@ -28,21 +28,23 @@ Position FindBySurname(Position first, char surname[MAX_SIZE]);
 int Delete(Position head, Position pos);
 int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
 int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+int PrintingList(Position pos);
+int WriteListInFile(Position first);
 
 int main()
 {
-	Person headPerson;
-	headPerson.next = NULL;
+	Person headPerson = { {0}, {0}, 0, NULL };
 
 	Position posOfWantedPerson;//in case we want addy of the wanted person saved
 
 	AddOnHead(&headPerson, "Karlo", "Bakic", 2004);
 	AddOnHead(&headPerson, "Luka", "Bosnic", 2003);
 	AddOnEnd(&headPerson, "Laura", "Bauk", 2003);
-	AddAfter(&headPerson, FindBySurname(headPerson.next, "Bakic"),"Vedran","Delic", 2003);
-	//AddBefore(&headPerson, FindBySurname(headPerson.next, "Bakic"));
+	AddAfter(&headPerson, FindBySurname(headPerson.next, "Bauk"),"Mate","Bakovic", 2003);
+	AddBefore(&headPerson, FindBySurname(headPerson.next, "Bakic"), "Vedran", "Delic", 2003);
 	posOfWantedPerson = FindBySurname(headPerson.next, "Bakic");//harcoded input just for example
 	Delete(&headPerson, posOfWantedPerson);//reuse the variable from finding for deleting
+	WriteListInFile(headPerson.next);
 
 	PrintingList(headPerson.next);
 
@@ -126,8 +128,41 @@ int Delete(Position head, Position pos) {
 
 int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
 
-	Position newPerson;
+	Position newPerson = NULL;
 	newPerson = (Position)malloc(sizeof(Person));
+	if (!newPerson)
+	{
+		return -1;
+	}
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->surname, surname);
+	newPerson->birthyear = birthyear;
+	
+	while (head != NULL && head != pos) {
+		head = head->next;
+	}
+	if (head == NULL) {
+		printf("Person not found.\n");
+		return -1;
+	}
+	else {
+		newPerson->next = pos->next;
+		pos->next = newPerson;
+		printf("Added person %s %s, after person %s %s\n",
+			newPerson->name, newPerson->surname, pos->name, pos->surname);
+	}
+
+	return 0;
+}
+
+int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+
+	Position newPerson = NULL;
+	newPerson = (Position)malloc(sizeof(Person));
+	if (!newPerson)
+	{
+		return -1;
+	}
 	strcpy(newPerson->name, name);
 	strcpy(newPerson->surname, surname);
 	newPerson->birthyear = birthyear;
@@ -136,20 +171,36 @@ int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_
 		head = head->next;
 	}
 	if (head == NULL) {
-		printf("Person not found.");
+		printf("Person not found.\n");
 		return -1;
 	}
 	else {
 		head->next = newPerson;
-		newPerson->next = pos->next;
+		newPerson->next = pos;
+		printf("Added person %s %s, before person %s %s\n",
+			newPerson->name, newPerson->surname, pos->name, pos->surname);
 	}
 
 	return 0;
 }
 
-int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+int WriteListInFile(Position first) {
 
+	FILE* f;
+	f = fopen("persons.txt", "w");
 
+	while (first != NULL) {
+		fprintf(f, "%s %s %d\n", first->name, first->surname, first->birthyear);
+		first = first->next;
+	}
+
+	fclose(f);
+	printf("List written successfully.\n");
+
+	return 0;
+}
+
+int ReadListFromFile() {
 
 	return 0;
 }
