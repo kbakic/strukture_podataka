@@ -21,6 +21,34 @@ typedef struct _person
 	Position next;
 } Person;
 
+
+int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+Position FindBySurname(Position first, char surname[MAX_SIZE]);
+int Delete(Position head, Position pos);
+int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+
+int main()
+{
+	Person headPerson;
+	headPerson.next = NULL;
+
+	Position posOfWantedPerson;//in case we want addy of the wanted person saved
+
+	AddOnHead(&headPerson, "Karlo", "Bakic", 2004);
+	AddOnHead(&headPerson, "Luka", "Bosnic", 2003);
+	AddOnEnd(&headPerson, "Laura", "Bauk", 2003);
+	AddAfter(&headPerson, FindBySurname(headPerson.next, "Bakic"),"Vedran","Delic", 2003);
+	//AddBefore(&headPerson, FindBySurname(headPerson.next, "Bakic"));
+	posOfWantedPerson = FindBySurname(headPerson.next, "Bakic");//harcoded input just for example
+	Delete(&headPerson, posOfWantedPerson);//reuse the variable from finding for deleting
+
+	PrintingList(headPerson.next);
+
+	return 0;
+}
+
 int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
 
 	Position newMember;
@@ -61,6 +89,71 @@ int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birt
 	return 0;
 }
 
+Position FindBySurname(Position first, char surname[MAX_SIZE])
+{
+	while ( first != NULL && strcmp(first->surname, surname) != 0) {
+		first = first->next;
+	}
+	if (first == NULL)
+		printf("Person not found and returned NULL.\n");
+	else
+		printf("Person with surname %s found with name %s and returned.\n", first->surname, first->name);
+	return first;
+}
+
+int Delete(Position head, Position pos) {
+
+	if (pos == NULL) {
+		printf("Invalid person input.\n");
+		return -1;
+	}
+
+	while (head->next != NULL && head->next != pos) {
+		head = head->next;
+	}
+	if (head->next = NULL) {
+		printf("Person not found.\n");
+		return -1;
+	}
+	else {
+		head->next = pos->next;
+		free(pos);
+		printf("Person successfully found and deleted.\n");
+	}
+
+	return 0;
+}
+
+int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+
+	Position newPerson;
+	newPerson = (Position)malloc(sizeof(Person));
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->surname, surname);
+	newPerson->birthyear = birthyear;
+
+	while (head != NULL && head->next != pos) {
+		head = head->next;
+	}
+	if (head == NULL) {
+		printf("Person not found.");
+		return -1;
+	}
+	else {
+		head->next = newPerson;
+		newPerson->next = pos->next;
+	}
+
+	return 0;
+}
+
+int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+
+
+
+	return 0;
+}
+
 int PrintingList(Position pos) {
 
 	while (pos != NULL) {
@@ -68,20 +161,6 @@ int PrintingList(Position pos) {
 			pos->name, pos->surname, pos->birthyear);
 		pos = pos->next;
 	}
-
-	return 0;
-}
-
-int main()
-{
-	Person headPerson;
-	headPerson.next = NULL;
-
-	AddOnHead(&headPerson, "Karlo", "Bakic", 2004);
-	AddOnHead(&headPerson, "Luka", "Bosnic", 2003);
-	AddOnEnd(&headPerson, "Laura", "Bauk", 2003);
-
-	PrintingList(headPerson.next);
 
 	return 0;
 }

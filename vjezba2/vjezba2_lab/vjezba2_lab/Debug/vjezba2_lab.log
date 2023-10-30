@@ -1,2 +1,3 @@
 ﻿  Source.c
-  vjezba2_lab.vcxproj -> C:\Users\student\Desktop\strukture_podataka\vjezba2\vjezba2_lab\Debug\vjezba2_lab.exe
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(47,2): warning C4013: 'PrintingList' undefined; assuming extern returning int
+  vjezba2_lab.vcxproj -> C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\Debug\vjezba2_lab.exe
