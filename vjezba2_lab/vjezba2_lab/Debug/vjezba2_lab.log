@@ -1,0 +1,10 @@
+﻿  Source.c
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(54,11): warning C4013: 'toupper' undefined; assuming extern returning int
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(56,19): warning C4047: 'function': 'Position' differs in levels of indirection from 'Position *'
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(56,14): warning C4024: 'AddOnHead': different types for formal and actual parameter 1
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(59,18): warning C4047: 'function': 'Position' differs in levels of indirection from 'Position *'
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(59,13): warning C4024: 'AddOnEnd': different types for formal and actual parameter 1
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(130,8): warning C4477: 'scanf' : format string '%d' requires an argument of type 'int *', but variadic argument 3 has type 'int'
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(203,8): warning C4477: 'scanf' : format string '%d' requires an argument of type 'int *', but variadic argument 3 has type 'int'
+C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\vjezba2_lab\Source.c(239,8): warning C4477: 'scanf' : format string '%d' requires an argument of type 'int *', but variadic argument 3 has type 'int'
+  vjezba2_lab.vcxproj -> C:\Users\cromp\Desktop\strukture_podataka\vjezba2\vjezba2_lab\Debug\vjezba2_lab.exe

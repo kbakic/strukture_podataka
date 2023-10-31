@@ -22,40 +22,86 @@ typedef struct _person
 } Person;
 
 
-int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
-int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
-Position FindBySurname(Position first, char surname[MAX_SIZE]);
+int AddOnHead(Position pos);
+int AddOnEnd(Position pos);
+Position FindBySurname(Position first);
 int Delete(Position head, Position pos);
-int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
-int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear);
+int AddAfter(Position head, Position pos);
+int AddBefore(Position head, Position pos);
 int PrintingList(Position pos);
 int WriteListInFile(Position first);
 int ReadListFromFile();
+int SortList(Position first);
+int SwapValues(Position first, Position second);
+int Menu(Position head);
 
 int main()
 {
 	Person headPerson = { {0}, {0}, 0, NULL };
 
-	Position posOfWantedPerson;//in case we want addy of the wanted person saved
-
-	AddOnHead(&headPerson, "Karlo", "Bakic", 2004);
-	AddOnHead(&headPerson, "Luka", "Bosnic", 2003);
-	AddOnEnd(&headPerson, "Laura", "Bauk", 2003);
-	AddAfter(&headPerson, FindBySurname(headPerson.next, "Bauk"),"Mate","Bakovic", 2003);
-	AddBefore(&headPerson, FindBySurname(headPerson.next, "Bakic"), "Vedran", "Delic", 2003);
-	posOfWantedPerson = FindBySurname(headPerson.next, "Bakic");//harcoded input just for example
-	Delete(&headPerson, posOfWantedPerson);//reuse the variable from finding for deleting
-	WriteListInFile(headPerson.next);
-
-	PrintingList(headPerson.next);
+	Menu(&headPerson);
 
 	return 0;
 }
 
-int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+int Menu(Position head) {
+
+	char choice = '\0';
+
+	while (1) {
+		printf("Enter your option: H-(Add on Head), E-(Add on End), F-(Find by Surname), D-(Delete by Surname), A-(Add after Person), B-(Add before Person), P-(Print List), W-(Write list in File), R-(Read list from File), S-(Sort list by Surname), X-(Exit)");
+		scanf(" %c", &choice);
+		switch (toupper(choice)) {
+		case 'H':
+			AddOnHead(&head);
+			continue;
+		case 'E':
+			AddOnEnd(&head);
+			continue;
+		case 'F':
+			FindBySurname(head->next);
+			continue;
+		case 'D':
+			Delete(head, FindBySurname(head->next));
+			continue;
+		case 'A':
+			AddAfter(head, FindBySurname(head->next));
+			continue;
+		case 'B':
+			AddBefore(head, FindBySurname(head->next));
+			continue;
+		case 'P':
+			PrintingList(head->next);
+			continue;
+		case 'W':
+			WriteListInFile(head->next);
+			continue;
+		case 'R':
+			ReadListFromFile();
+			continue;
+		case 'S':
+			SortList(head->next);
+			continue;
+		case 'X':
+			break;
+		}
+		break;
+	}
+
+	return 0;
+}
+
+int AddOnHead(Position pos) {
 
 	Position newMember;
 	newMember = (Position)malloc(sizeof(Person));
+
+	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = {0};
+	int birthyear = 0;
+
+	printf("Enter in this order Person's: name, surname and birthyear.\n");
+	
+	//unos
 
 	strcpy(newMember->name, name);
 	strcpy(newMember->surname, surname);
@@ -70,10 +116,17 @@ int AddOnHead(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int bir
 	return 0;
 }
 
-int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+int AddOnEnd(Position pos) {
 
 	Position newMember;
 	newMember = (Position)malloc(sizeof(Person));
+
+	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
+	int birthyear = 0;
+
+	printf("Enter in this order Person's: name, surname and birthyear.\n");
+	
+	//unos
 
 	strcpy(newMember->name, name);
 	strcpy(newMember->surname, surname);
@@ -92,8 +145,14 @@ int AddOnEnd(Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birt
 	return 0;
 }
 
-Position FindBySurname(Position first, char surname[MAX_SIZE])
+Position FindBySurname(Position first)
 {
+
+	char surname[MAX_SIZE] = { 0 };
+
+	printf("Enter the Person's surname.\n");
+	scanf("%s\n",surname);
+
 	while ( first != NULL && strcmp(first->surname, surname) != 0) {
 		first = first->next;
 	}
@@ -127,7 +186,7 @@ int Delete(Position head, Position pos) {
 	return 0;
 }
 
-int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+int AddAfter(Position head, Position pos) {
 
 	Position newPerson = NULL;
 	newPerson = (Position)malloc(sizeof(Person));
@@ -135,6 +194,13 @@ int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_
 	{
 		return -1;
 	}
+
+	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
+	int birthyear = 0;
+
+	printf("Enter in this order Person's: name, surname and birthyear.\n");
+	scanf("%s %s %d\n", name, surname, birthyear);
+
 	strcpy(newPerson->name, name);
 	strcpy(newPerson->surname, surname);
 	newPerson->birthyear = birthyear;
@@ -156,7 +222,7 @@ int AddAfter(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_
 	return 0;
 }
 
-int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX_SIZE], int birthyear) {
+int AddBefore(Position head, Position pos) {
 
 	Position newPerson = NULL;
 	newPerson = (Position)malloc(sizeof(Person));
@@ -164,6 +230,13 @@ int AddBefore(Position head, Position pos, char name[MAX_SIZE], char surname[MAX
 	{
 		return -1;
 	}
+
+	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
+	int birthyear = 0;
+
+	printf("Enter in this order Person's: name, surname and birthyear.\n");
+	scanf("%s %s %d\n", name, surname, birthyear);
+
 	strcpy(newPerson->name, name);
 	strcpy(newPerson->surname, surname);
 	newPerson->birthyear = birthyear;
@@ -202,6 +275,77 @@ int WriteListInFile(Position first) {
 }
 
 int ReadListFromFile() {
+
+	FILE* f;
+	f = fopen("persons.txt", "r");
+
+	while (!feof(f)) {
+		char name[MAX_SIZE], surname[MAX_SIZE];
+		int birthyear;
+		int tmp = fscanf(f, "%s %s %d\n", name, surname, &birthyear);
+		printf("%s %s %d\n", name, surname, birthyear);
+	}
+
+	printf("List read successfully.\n");
+	fclose(f);
+
+	return 0;
+}
+
+int SortList(Position first) {
+
+	Position lastRead = NULL;
+	Position start = first;
+
+	int swapped = 0;
+
+	if (!first) {
+		printf("List empty.\n");
+		return -2;
+	}
+	else if (!first->next) {
+		printf("List has only 1 element.\n");
+		return -1;
+	}
+
+	do {
+		swapped = 0;
+		Position pos = start;
+		
+		while (pos->next != lastRead) {
+			if (strcmp(pos->surname,pos->next->surname) > 0) {
+
+				SwapValues(pos, pos->next);
+				swapped = 1;
+			}
+			pos = pos->next;
+		}
+
+		lastRead = pos;
+
+	} while (swapped);
+
+	printf("Sorted successfully.\n");
+
+	return 0;
+}
+
+int SwapValues(Position first, Position second) {
+
+	char tempName[MAX_SIZE], tempSurname[MAX_SIZE];
+	int tempBirthyear;
+
+	strcpy(tempName, first->name);
+	strcpy(tempSurname, first->surname);
+	tempBirthyear = first->birthyear;
+
+	strcpy(first->name, second->name);
+	strcpy(first->surname, second->surname);
+	first->birthyear = second->birthyear;
+
+	strcpy(second->name, tempName);
+	strcpy(second->surname, tempSurname);
+	second->birthyear = tempBirthyear;
 
 	return 0;
 }
