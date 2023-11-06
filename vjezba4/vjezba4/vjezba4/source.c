@@ -32,7 +32,7 @@ int mergeAfter(Position current, Position newElement);
 int insertAfter(Position current, Position newElement);
 int deleteAfter(Position previous);
 int createAndInsertAfter(int coefficient, int exponent, Position current);
-//int sortPolynomial(Position head); ... something wrong
+int sortPolynomial(Position head);
 
 int main()
 {
@@ -48,10 +48,12 @@ int main()
 		printPolynomial("Second polynomial: ", head2.next);
 
 		addPolynomial(&headAdd, head1.next, head2.next);
-		//sortPolynomial(&headAdd);
+		printPolynomial("Added polynomials: ", headAdd.next);
+		//printf("%d\n", headAdd.next->exponent);
+		sortPolynomial(headAdd.next);
+		printPolynomial("Sorted added polynomials: ", headAdd.next);
 		multiplyPolynomial(&headMultiply, head1.next, head2.next);
 
-		printPolynomial("Added polynomials: ", headAdd.next);
 		printPolynomial("Multiplied polynomials: ", headMultiply.next);
 
 		freeMemory(&head1);
@@ -372,21 +374,22 @@ int createAndInsertAfter(int coefficient, int exponent, Position current)
 	return EXIT_SUCCESS;
 }
 
-/*int sortPolynomial(Position head)
+int sortPolynomial(Position first)
 {
-	int temp;
-	for(head; head != NULL; head = head->next)
+	Position temp;
+	Position second = first->next;
+	for(first; first->next != NULL; first = first->next)
 	{
-		for(Position current=head->next; current!=NULL != NULL; current=current->next)
+		for(second; second->next!=NULL; second=second->next)
 		{
-			if(head->exponent < head->next->exponent)
+			if (first->exponent < second->exponent)
 			{
-				temp = head->exponent;
-				head->exponent = head->next->exponent;
-				head->next->exponent = temp;
+				temp = first;
+				first = second;
+				second = temp;
 			}
 		}
 	}
 
 	return EXIT_SUCCESS;
-}*/
+}
