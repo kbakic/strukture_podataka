@@ -33,18 +33,20 @@ int WriteListInFile(Position first);
 int ReadListFromFile();
 int SortList(Position first);
 int SwapValues(Position first, Position second);
-int Menu(Position head);
+int Menu();
 
 int main()
 {
 	Person headPerson = { {0}, {0}, 0, NULL };
 
-	Menu(&headPerson);
+	Menu();
 
 	return 0;
 }
 
-int Menu(Position head) {
+int Menu() {
+
+	Person head = { {0}, {0}, 0, NULL };
 
 	char choice = '\0';
 
@@ -59,31 +61,34 @@ int Menu(Position head) {
 			AddOnEnd(&head);
 			continue;
 		case 'F':
-			FindBySurname(head->next);
+			FindBySurname(head.next);
 			continue;
 		case 'D':
-			Delete(head, FindBySurname(head->next));
+			Delete(&head, FindBySurname(head.next));
 			continue;
 		case 'A':
-			AddAfter(head, FindBySurname(head->next));
+			AddAfter(&head, FindBySurname(head.next));
 			continue;
 		case 'B':
-			AddBefore(head, FindBySurname(head->next));
+			AddBefore(&head, FindBySurname(head.next));
 			continue;
 		case 'P':
-			PrintingList(head->next);
+			PrintingList(head.next);
 			continue;
 		case 'W':
-			WriteListInFile(head->next);
+			WriteListInFile(head.next);
 			continue;
 		case 'R':
 			ReadListFromFile();
 			continue;
 		case 'S':
-			SortList(head->next);
+			SortList(head.next);
 			continue;
 		case 'X':
 			break;
+		default:
+			printf("Wrong letter.\n");
+			continue;
 		}
 		break;
 	}
@@ -99,9 +104,12 @@ int AddOnHead(Position pos) {
 	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = {0};
 	int birthyear = 0;
 
-	printf("Enter in this order Person's: name, surname and birthyear.\n");
-	
-	//unos
+	printf("Enter Person's name\n");
+	scanf(" %s", name);
+	printf("Enter Person's surname\n");
+	scanf(" %s", surname);
+	printf("Enter Person's birthyear\n");
+	scanf(" %d", &birthyear);
 
 	strcpy(newMember->name, name);
 	strcpy(newMember->surname, surname);
@@ -124,9 +132,12 @@ int AddOnEnd(Position pos) {
 	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
 	int birthyear = 0;
 
-	printf("Enter in this order Person's: name, surname and birthyear.\n");
-	
-	//unos
+	printf("Enter Person's name\n");
+	scanf(" %s", name);
+	printf("Enter Person's surname\n");
+	scanf(" %s", surname);
+	printf("Enter Person's birthyear\n");
+	scanf(" %d", &birthyear);
 
 	strcpy(newMember->name, name);
 	strcpy(newMember->surname, surname);
@@ -151,7 +162,7 @@ Position FindBySurname(Position first)
 	char surname[MAX_SIZE] = { 0 };
 
 	printf("Enter the Person's surname.\n");
-	scanf("%s\n",surname);
+	scanf(" %s",surname);
 
 	while ( first != NULL && strcmp(first->surname, surname) != 0) {
 		first = first->next;
@@ -198,8 +209,12 @@ int AddAfter(Position head, Position pos) {
 	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
 	int birthyear = 0;
 
-	printf("Enter in this order Person's: name, surname and birthyear.\n");
-	scanf("%s %s %d\n", name, surname, birthyear);
+	printf("Enter Person's name\n");
+	scanf(" %s", name);
+	printf("Enter Person's surname\n");
+	scanf(" %s", surname);
+	printf("Enter Person's birthyear\n");
+	scanf(" %d", &birthyear);
 
 	strcpy(newPerson->name, name);
 	strcpy(newPerson->surname, surname);
@@ -234,8 +249,12 @@ int AddBefore(Position head, Position pos) {
 	char name[MAX_SIZE] = { 0 }, surname[MAX_SIZE] = { 0 };
 	int birthyear = 0;
 
-	printf("Enter in this order Person's: name, surname and birthyear.\n");
-	scanf("%s %s %d\n", name, surname, birthyear);
+	printf("Enter Person's name\n");
+	scanf(" %s", name);
+	printf("Enter Person's surname\n");
+	scanf(" %s", surname);
+	printf("Enter Person's birthyear\n");
+	scanf(" %d", &birthyear);
 
 	strcpy(newPerson->name, name);
 	strcpy(newPerson->surname, surname);
@@ -282,7 +301,7 @@ int ReadListFromFile() {
 	while (!feof(f)) {
 		char name[MAX_SIZE], surname[MAX_SIZE];
 		int birthyear;
-		int tmp = fscanf(f, "%s %s %d\n", name, surname, &birthyear);
+		fscanf(f, "%s %s %d\n", name, surname, &birthyear);
 		printf("%s %s %d\n", name, surname, birthyear);
 	}
 
@@ -352,7 +371,11 @@ int SwapValues(Position first, Position second) {
 
 int PrintingList(Position pos) {
 
-	while (pos != NULL) {
+	if (!pos) {
+		printf("Empty list.");
+	}
+
+	while (pos) {
 		printf("Person name and surname: %s %s, birthyear: %d\n",
 			pos->name, pos->surname, pos->birthyear);
 		pos = pos->next;
