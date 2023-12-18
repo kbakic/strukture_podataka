@@ -1,0 +1,5 @@
+﻿  source.c
+C:\Users\cromp\Desktop\strukture_podataka\vjezba8\vjezba8\source.c(30,11): warning C4244: 'function': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\cromp\Desktop\strukture_podataka\vjezba8\vjezba8\source.c(189,9): warning C4033: 'levelOrder' must return a value
+C:\Users\cromp\Desktop\strukture_podataka\vjezba8\vjezba8\source.c(208): warning C4715: 'levelOrder': not all control paths return a value
+  vjezba8.vcxproj -> C:\Users\cromp\Desktop\strukture_podataka\vjezba8\x64\Debug\vjezba8.exe
