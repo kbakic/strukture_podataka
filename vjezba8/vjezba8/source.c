@@ -62,7 +62,7 @@ int main() {
 
     //rand()
 
-    /*while (1) {
+    while (1) {
         printf("\nMenu:\n");
         printf("1 - Insert node\n");
         printf("2 - Search node\n");
@@ -127,7 +127,7 @@ int main() {
         else {
             printf("\033[0;31mInvalid choice. Please enter a valid option.\033[0m\n");
         }
-    }*/
+    }
 
     return EXIT_SUCCESS;
 }
