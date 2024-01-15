@@ -121,8 +121,8 @@ CountryPosition readAndFillCountries(CountryPosition countryHeadList, CountryPos
 		newCountryTree = countries[1];
 		insertSortedNewCountryList(countryHeadList, newCountryList);
 		countryRootTree = insertNewCountryTree(countryRootTree, newCountryTree);
-		strcpy(countryName, nullString);// provjeri treba li
-		strcpy(countryFile, nullString);// provjeri treba li
+		strcpy(countryName, nullString);
+		strcpy(countryFile, nullString);
 	}
 
 	fclose(filePointer);
@@ -160,7 +160,7 @@ int createNewCountryFromBuffer(char* countryName, char* countryFile, CountryPosi
 		newTown = createNewTown(townName, townPopulation);
 		insertSortedNewTownList(&newCountryTree->townListHead, newTownList);
 		newCountryList->townRootTree = insertNewTownTree(newCountryList->townRootTree, newTown);
-		newTownList = NULL;// provjeri treba li
+		newTownList = NULL;
 	}
 	countries[0] = newCountryList;
 	countries[1] = newCountryTree;
@@ -186,7 +186,6 @@ CountryPosition createNewCountry(char* countryName)
 	country->left = NULL;
 	country->right = NULL;
 	country->townRootTree = NULL;
-	//strcpy(country->townHeadList.name, NULL);
 	country->townListHead.population = 0;
 	country->townListHead.next = NULL;
 	country->townListHead.left = NULL;
@@ -240,7 +239,7 @@ TownPosition insertNewTownTree(TownPosition townRootTree, TownPosition newTown)
 	if(townRootTree == NULL)
 		return newTown;
 
-	if(newTown->population > townRootTree->population)//dodaj provjeru po imenima naknadno...
+	if(newTown->population > townRootTree->population)
 		townRootTree->left = insertNewTownTree(townRootTree->left, newTown);
 	else if(newTown->population <= townRootTree->population)
 		townRootTree->right = insertNewTownTree(townRootTree->right, newTown);
