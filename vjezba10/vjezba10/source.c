@@ -343,6 +343,8 @@ int findCountries(CountryPosition countryHeadList, CountryPosition countryRootTr
 	countries[0] = countryCurrentList;
 	countries[1] = countryCurrentTree;
 
+	//nadodat dio zadatka da se ispisuju svi gradovi odredene drzave koji imaju vise stanovnika od broja unesenog od strane korisnika
+
 	return EXIT_SUCCESS;
 }
 
