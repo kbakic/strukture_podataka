@@ -1,8 +1,8 @@
 ﻿  source.c
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(281,19): warning C4133: 'function': incompatible types - from 'UPosition' to 'const char *'
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(282,9): warning C4133: 'function': incompatible types - from 'UPosition' to 'char *'
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(282,16): warning C4133: 'function': incompatible types - from 'UPosition' to 'const char *'
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(283,9): warning C4133: 'function': incompatible types - from 'UPosition' to 'char *'
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(349,8): warning C4013: 'CheckUserBooks' undefined; assuming extern returning int
-C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(488,27): warning C4133: 'function': incompatible types - from 'BPosition' to 'const char *'
-  vjezbaZaOslobodenje.vcxproj -> C:\Users\cromp\Desktop\strukture_podataka\vjezbaZaOslobodenje\x64\Debug\vjezbaZaOslobodenje.exe
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(281,19): warning C4133: 'function': incompatible types - from 'UPosition' to 'const char *'
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(282,9): warning C4133: 'function': incompatible types - from 'UPosition' to 'char *'
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(282,16): warning C4133: 'function': incompatible types - from 'UPosition' to 'const char *'
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(283,9): warning C4133: 'function': incompatible types - from 'UPosition' to 'char *'
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(349,8): warning C4013: 'CheckUserBooks' undefined; assuming extern returning int
+C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\vjezbaZaOslobodenje\source.c(488,27): warning C4133: 'function': incompatible types - from 'BPosition' to 'const char *'
+  vjezbaZaOslobodenje.vcxproj -> C:\Users\student\Desktop\strukture_podataka\vjezbaZaOslobodenje\x64\Debug\vjezbaZaOslobodenje.exe

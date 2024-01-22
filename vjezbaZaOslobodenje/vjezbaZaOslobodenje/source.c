@@ -582,12 +582,12 @@ int SaveInventory(BPosition book, UPosition user) {
 	fprintf(file, "BOOKS\n");
 	while (book->next) {
 		book = book->next;
-		fprintf(file, "%s * %s %d %d\n", book->name, book->author, book->releaseYear, book->availableCopies);
+		fprintf(file, "%s,%s,%d %d\n", book->name, book->author, book->releaseYear, book->availableCopies);
 	}
 	fprintf(file, "USERS\n");
 	while (user->next) {
 		user = user->next;
-		fprintf(file, "%s", user->name);
+		fprintf(file, "%s *", user->name);
 
 		for (int i = 0; i < 5; i++) {
 			if (user->books[i] == NULL) {
@@ -613,27 +613,28 @@ int LoadInventory(BPosition book, UPosition user) {
 		return FILE_ERROR;
 	}
 	char tmp[MAX_LINE];
-	fscanf(file, "BOOKS\n");
-	do {
+	fgets(tmp, MAX_LINE, file);
+	int paramsRead=4;
+	while (paramsRead==4) {
 		char name[MAX_LINE], author[MAX_LINE];
 		int year, copies;
+
 		fgets(tmp, MAX_LINE, file);
-		fscanf(file, "%[^\n]s * %[^\n]s %d %d\n", name, author, &year, &copies);
-		AddBook(book, name, author, year, copies);
-	} while (strcmp(tmp, "USERS") != 0);
+		paramsRead = sscanf(tmp, "%[^,]%*c%[^,]%*c%d %d", name, author, &year, &copies);
+
+		printf("%s %s %d %d\n", name, author, year, copies);
+		//AddBook(book, name, author, year, copies);
+	}
 	/*while (!feof(file)) {
-		user = user->next;
-		fprintf(file, "%s", user->name);
+		
+		char name[MAX_LINE];
+		char names[MAX_LINE][5];
+
+		fscanf(file, "%s *");
 
 		for (int i = 0; i < 5; i++) {
-			if (user->books[i] == NULL) {
-				fprintf(file, " NULL");
-			}
-			else {
-				fprintf(file, " %[^\n]s", user->books[i]->name);
-			}
+			fscanf(file, " %s");
 		}
-		fprintf(file, "\n");
 	}*/
 
 	return EXIT_SUCCESS;

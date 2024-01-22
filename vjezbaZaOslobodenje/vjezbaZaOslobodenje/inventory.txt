@@ -1,14 +1,15 @@
 BOOKS
-Kiklop Ranko Marinkovic 1965 3
-Mali princ Antoine de Saint-Exupery 1943 8
-Poezija Tin Ujevic 1920 1
-Preobrazba Franz Kafka 1915 5
-Vlak u snijegu Mato Lovrak 1930 10
-Zlocin i kazna Fjodor Dostojevski 1866 12
+Kiklop,Ranko Marinkovic,1965 2
+Mali princ,Antoine de Saint-Exupery,1943 8
+Poezija,Tin Ujevic,1920 1
+Preobrazba,Franz Kafka,1915 3
+Vlak u snijegu,Mato Lovrak,1930 10
+Zlocin i kazna,Fjodor Dostojevski,1866 12
 USERS
-Ivona Delic NULL NULL NULL NULL NULL
-Karlo Bakic NULL NULL NULL NULL NULL
-Laura Bauk NULL NULL NULL NULL NULL
-Luka Bosnic NULL NULL NULL NULL NULL
-Mate Bakovic NULL NULL NULL NULL NULL
-Vedran Delic NULL NULL NULL NULL NULL
+Ivona Delic * NULL NULL NULL NULL NULL
+Karlo Bakic * Kiklop NULL NULL Preobrazba Preobrazba
+Laura Bauk * NULL NULL NULL NULL NULL
+Luka Bosnic * NULL NULL NULL NULL NULL
+Mate Bakovic * NULL NULL NULL NULL NULL
+Sime Simic * NULL NULL NULL NULL NULL
+Vedran Delic * NULL NULL NULL NULL NULL
