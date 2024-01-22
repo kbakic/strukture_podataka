@@ -31,7 +31,7 @@ typedef struct _user {
 int PrintBooksAlphabetically(BPosition head);
 int PrintUsersAlphabetically(UPosition head);
 int AddBook(BPosition head, char name[MAX_LINE], char author[MAX_LINE], int releaseYear, int availableCopies);
-int AddUser(UPosition head, char name[MAX_LINE]);
+UPosition AddUser(UPosition head, char name[MAX_LINE]);
 int PrintBooks(BPosition head);
 int SwapBookValues(BPosition first, BPosition second);
 int PrintUsers(UPosition head);
@@ -49,21 +49,21 @@ int main() {
 	Book hBook = { .author = {0},.availableCopies = 0,.name = {0},.releaseYear = 0,.next = NULL };
 	User hUser = { .name = {0},.books = NULL,.next = NULL };
 
-	AddBook(&hBook, "Vlak u snijegu", "Mato Lovrak", 1930, 10);
+	/*AddBook(&hBook, "Vlak u snijegu", "Mato Lovrak", 1930, 10);
 	AddBook(&hBook, "Kiklop", "Ranko Marinkovic", 1965, 3);
 	AddBook(&hBook, "Poezija", "Tin Ujevic", 1920, 1);
 	AddBook(&hBook, "Mali princ", "Antoine de Saint-Exupery", 1943, 8);
 	AddBook(&hBook, "Preobrazba", "Franz Kafka", 1915, 5);
-	AddBook(&hBook, "Zlocin i kazna", "Fjodor Dostojevski", 1866, 12);
+	AddBook(&hBook, "Zlocin i kazna", "Fjodor Dostojevski", 1866, 12);*/
 
 	LoadInventory(&hBook, &hUser);
 
-	AddUser(&hUser, "Karlo Bakic");
+	/*AddUser(&hUser, "Karlo Bakic");
 	AddUser(&hUser, "Vedran Delic");
 	AddUser(&hUser, "Luka Bosnic");
 	AddUser(&hUser, "Mate Bakovic");
 	AddUser(&hUser, "Ivona Delic");
-	AddUser(&hUser, "Laura Bauk");
+	AddUser(&hUser, "Laura Bauk");*/
 
 	while (1) {
 		printf("Pick a choice: 1) Print Books alphabetically 2) Print Users alphabetically 3) Search Books by year 4) Search Books by author 5)	Create new User 6) Lend a Book 7) Return a Book 8) Save Inventory 9) Print Books 10) Print Users 0) Exit\n");
@@ -175,7 +175,7 @@ int AddBook(BPosition head, char name[MAX_LINE], char author[MAX_LINE], int rele
 	return EXIT_SUCCESS;
 }
 
-int AddUser(UPosition head, char name[MAX_LINE]) {
+UPosition AddUser(UPosition head, char name[MAX_LINE]) {
 
 	UPosition newUser = NULL;
 	newUser = (UPosition)malloc(sizeof(User));
@@ -193,7 +193,7 @@ int AddUser(UPosition head, char name[MAX_LINE]) {
 	newUser->next = head->next;
 	head->next = newUser;
 
-	return EXIT_SUCCESS;
+	return newUser;
 }
 
 int PrintBooks(BPosition head) {
@@ -584,27 +584,32 @@ int SaveInventory(BPosition book, UPosition user) {
 		book = book->next;
 		fprintf(file, "%s,%s,%d %d\n", book->name, book->author, book->releaseYear, book->availableCopies);
 	}
+	printf("Successfully saved Books.\n");
 	fprintf(file, "USERS\n");
 	while (user->next) {
 		user = user->next;
-		fprintf(file, "%s *", user->name);
+		fprintf(file, "%s,", user->name);
 
 		for (int i = 0; i < 5; i++) {
 			if (user->books[i] == NULL) {
-				fprintf(file, " NULL");
+				fprintf(file, "NULL,");
 			}
 			else {
-				fprintf(file, " %s", user->books[i]->name);
+				fprintf(file, "%s,", user->books[i]->name);
 			}
 		}
 		fprintf(file, "\n");
 	}
+	fprintf(file, "END");
 
 	fclose(file);
+	printf("Successfully saved Users.\n");
 	return EXIT_SUCCESS;
 }
 
 int LoadInventory(BPosition book, UPosition user) {
+
+	BPosition start = book;
 
 	FILE* file;
 	file = fopen("inventory.txt", "r");
@@ -614,28 +619,48 @@ int LoadInventory(BPosition book, UPosition user) {
 	}
 	char tmp[MAX_LINE];
 	fgets(tmp, MAX_LINE, file);
+
 	int paramsRead=4;
 	while (paramsRead==4) {
 		char name[MAX_LINE], author[MAX_LINE];
 		int year, copies;
 
 		fgets(tmp, MAX_LINE, file);
-		paramsRead = sscanf(tmp, "%[^,]%*c%[^,]%*c%d %d", name, author, &year, &copies);
-
-		printf("%s %s %d %d\n", name, author, year, copies);
-		//AddBook(book, name, author, year, copies);
+		if (strcmp(tmp, "USERS\n") == 0) {
+			paramsRead = 0;
+			continue;
+		}
+		paramsRead = sscanf(tmp, " %[^,]%*c%[^,]%*c%d %d", name, author, &year, &copies);
+		AddBook(book, name, author, year, copies);
 	}
-	/*while (!feof(file)) {
+	printf("Successfully loaded Books.\n");
+	while (!feof(file)) {
 		
 		char name[MAX_LINE];
-		char names[MAX_LINE][5];
+		char names[5][MAX_LINE];
 
-		fscanf(file, "%s *");
-
-		for (int i = 0; i < 5; i++) {
-			fscanf(file, " %s");
+		fgets(tmp, MAX_LINE, file);
+		if (strcmp(tmp, "END") == 0) {
+			continue;
 		}
-	}*/
 
+		paramsRead=sscanf(tmp, "%[^,]%*c%[^,]%*c%[^,]%*c%[^,]%*c%[^,]%*c%[^,]%*c"
+			, name, names[0], names[1], names[2], names[3], names[4]);
+
+		UPosition currentUser = AddUser(user, name);
+		int counter = 0;
+		while (book->next) {
+			book = book->next;
+			for (int i = 0; i < 5; i++) {
+				if (strcmp(book->name, names[i]) == 0) {
+					currentUser->books[counter]=book;
+					counter++;
+				}
+			}
+		}
+		book = start;
+		
+	}
+	printf("Successfully loaded Users.\n");
 	return EXIT_SUCCESS;
 }
