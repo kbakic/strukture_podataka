@@ -4,7 +4,6 @@
 #include <stdbool.h>
 #include <time.h>
 
-// Struktura čvora binarnog stabla
 struct _node;
 typedef struct _node* Position;
 typedef struct _node {
@@ -61,7 +60,10 @@ int main() {
     levelOrder(rootRand);
 
     //rand()
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4bd8d7d4449179aae1e0b7be9e683a018b5ea7ec
     while (1) {
         printf("\nMenu:\n");
         printf("1 - Insert node\n");
@@ -221,13 +223,11 @@ Position deleteNode(Position root, int value) {
     if (root == NULL)
         return root;
 
-    // Find node
     if (value < root->value)
         root->left = deleteNode(root->left, value);
     else if (value > root->value)
         root->right = deleteNode(root->right, value);
     else {
-        // Node with one or no children
         if (root->left == NULL) {
             Position temp = root->right;
             free(root);
@@ -239,15 +239,12 @@ Position deleteNode(Position root, int value) {
             return temp;
         }
 
-        // Node with two children, find smallest in the right tree
         Position temp = root->right;
         while (temp->left != NULL)
             temp = temp->left;
 
-        // Copy value from smallest to current node
         root->value = temp->value;
 
-        // Delete smallest from the right tree
         root->right = deleteNode(root->right, temp->value);
     }
 
@@ -259,17 +256,13 @@ int replace(Position root) {
         return 0;
     }
 
-    // Recursively update left and right subtrees first
     int leftValue = replace(root->left);
     int rightValue = replace(root->right);
 
-    // Store the original value
     int originalValue = root->value;
 
-    // Update the value of the current node to be the sum of its children
     root->value = leftValue + rightValue;
 
-    // Return the sum of the node's value and the sum of its children
     return originalValue + root->value;
 }
 

@@ -1,0 +1,6 @@
+﻿  source.c
+C:\Users\ivan.bosnic\Desktop\strukture_podataka\vjezba10\vjezba10\source.c(208,23): warning C4047: 'return': 'CountryPosition' differs in levels of indirection from 'int'
+C:\Users\ivan.bosnic\Desktop\strukture_podataka\vjezba10\vjezba10\source.c(135): warning C4716: 'printAllCountriesFromHash': must return a value
+C:\Users\ivan.bosnic\Desktop\strukture_podataka\vjezba10\vjezba10\source.c(396): warning C4716: 'printCountryList': must return a value
+C:\Users\ivan.bosnic\Desktop\strukture_podataka\vjezba10\vjezba10\source.c(418): warning C4716: 'printTownList': must return a value
+  vjezba10.vcxproj -> C:\Users\ivan.bosnic\Desktop\strukture_podataka\vjezba10\x64\Debug\vjezba10.exe
